@@ -10,7 +10,7 @@ public class ArrayUtil
             {
                 if ( array[j] > array[j+1] )
                 {
-                    swapArray(array, i, j);
+                    swapArray(array, j,j+1);
                 }
             }
         }

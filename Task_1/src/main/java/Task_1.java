@@ -7,6 +7,6 @@ public class Task_1
         ArrayUtil.bubbleSort(intArray);
         System.out.println(ArrayUtil.findMax(intArray));
         System.out.println(ArrayUtil.findMin(intArray));
-        
+
     }
 }
