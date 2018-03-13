@@ -11,6 +11,5 @@ public class Task_1
         ArrayUtil.quickSort(quickSortArray);
         System.out.println(ArrayUtil.findMax(intArray));
         System.out.println(ArrayUtil.findMin(intArray));
-
     }
 }

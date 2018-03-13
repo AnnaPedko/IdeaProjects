@@ -96,10 +96,8 @@ public class ArrayUtil
         {
             rightSubArray[j] = array[mediana + 1 + j];
         }
-
-
-
     }
+
     private static void quickSortArray( int[] array, int startIndex, int finishIndex)
     {
         if (startIndex < finishIndex )
@@ -128,7 +126,4 @@ public class ArrayUtil
 
         return partition;
     }
-
-
-
 }
