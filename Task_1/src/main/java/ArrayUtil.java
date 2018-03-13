@@ -12,7 +12,7 @@ public class ArrayUtil
                 {
                     if (array[j] > array[j + 1])
                     {
-                        swapArray(array, j, j + 1);
+                        swap(array, j, j + 1);
                     }
                 }
             }
@@ -21,7 +21,7 @@ public class ArrayUtil
         }
     }
 
-    public static void swapArray(int[] arr, int i, int j)
+    public static void swap(int[] arr, int i, int j)
     {
         int temp = arr[i];
         arr[i] = arr[j];
@@ -120,11 +120,11 @@ public class ArrayUtil
         {
             if (array[j] <= pivotElement)
             {
-                swapArray(array, partition, j);
+                swap(array, partition, j);
                 partition++;
             }
         }
-        swapArray(array, partition, pivotIndex );
+        swap(array, partition, pivotIndex );
 
         return partition;
     }
