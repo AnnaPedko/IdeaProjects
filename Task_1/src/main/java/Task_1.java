@@ -75,7 +75,7 @@ public class Task_1 {
 
     public static void main(String[] args)
     {
-        int arraySize = 8;
+        int arraySize = 5;
         int binaryArray[] = {1, 2, 4, 6, 8, 10, 20, 1000};
 
         //Binary search
@@ -85,8 +85,7 @@ public class Task_1 {
         System.out.println("Sorted Array for Binary Search = " + Arrays.toString(binaryArray));
         System.out.println("Index  = " + indexElement  + " of searching element = " + findElement);
         printDelimiter();
-
-        //BubbleSort algo
+        //Sort Algo
         SortApplier.applySort(new MergeSort(), generateArray(arraySize, 0, 10));
         printDelimiter();
         SortApplier.applySort(new QuickSort(), generateArray(arraySize, 0, 10));
@@ -96,8 +95,8 @@ public class Task_1 {
 
         //find min, max in bubble sort array
         System.out.println("Array for finding max, min = " + Arrays.toString(binaryArray));
-        System.out.println(ArrayUtil.findMax(binaryArray));
-        System.out.println(ArrayUtil.findMin(binaryArray));
+        System.out.println("Max element = " + ArrayUtil.findMax(binaryArray));
+        System.out.println("Min element = " + ArrayUtil.findMin(binaryArray));
     }
 
     public static int random(int min, int max)

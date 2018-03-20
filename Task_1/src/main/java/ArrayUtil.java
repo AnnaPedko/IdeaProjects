@@ -97,7 +97,7 @@ public class ArrayUtil
      **/
     public static void quickSort(int[] array)
     {
-      quickSortArray(array, 0, array.length );
+      quickSortArray(array, 0, array.length - 1);
     }
 
     private static void quickSortArray( int[] array, int startIndex, int finishIndex)
@@ -112,11 +112,11 @@ public class ArrayUtil
 
     private static int getPartitionIndex(int[] array, int startIndex, int finishIndex)
     {
-        int pivotIndex = finishIndex - 1;
+        int pivotIndex = finishIndex;
         int pivotElement = array[pivotIndex];
         int partition = startIndex;
 
-        for (int j = startIndex; j < finishIndex - 1; j++)
+        for (int j = startIndex; j < finishIndex; j++)
         {
             if (array[j] <= pivotElement)
             {
@@ -146,10 +146,7 @@ public class ArrayUtil
 
             int mediana = startIndex + (finishIndex - startIndex) / 2;
 
-            //System.out.println("First recursion -> " + "Start Index = " + startIndex + " Mediana = " + mediana + " finishIndex  = " + finishIndex);
             mergeSortArray(array, startIndex, mediana);
-
-            //System.out.println("Second recursion -> " + "Start Index = " + startIndex+" Mediana = " + mediana + " finishIndex  = " + finishIndex);
             mergeSortArray(array, mediana + 1, finishIndex);
 
             merge(array, startIndex, mediana, finishIndex);
