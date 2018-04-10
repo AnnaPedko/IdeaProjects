@@ -24,4 +24,9 @@ public class Contact {
     public void setPhoneNumber_(int phoneNumber_) {
         this.phoneNumber_ = phoneNumber_;
     }
+
+    @Override
+    public String toString() {
+        return
+    }
 }
