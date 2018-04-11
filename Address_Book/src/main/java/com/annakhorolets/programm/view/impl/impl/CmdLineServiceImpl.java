@@ -1,5 +1,7 @@
 package com.annakhorolets.programm.view.impl.impl;
 
+import com.annakhorolets.programm.Validator.ValidateName;
+import com.annakhorolets.programm.Validator.Validator;
 import com.annakhorolets.programm.services.ContactService;
 import com.annakhorolets.programm.view.impl.CmdLineService;
 
@@ -8,7 +10,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class CmdLineServiceImpl implements CmdLineService {
-
 
     public CmdLineServiceImpl(ContactService contactService)
     {
@@ -71,7 +72,8 @@ public class CmdLineServiceImpl implements CmdLineService {
     private void createContact() throws IOException
     {
         System.out.println("Enter name");
-        String name = br.readLine();
+        String name = new ValidateName().getName();
+
 
         System.out.println("Enter age");
         int age = Integer.parseInt(br.readLine());
