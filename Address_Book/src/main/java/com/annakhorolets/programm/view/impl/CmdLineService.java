@@ -1,7 +1,5 @@
 package com.annakhorolets.programm.view.impl;
 
 public interface CmdLineService {
-    void showMenu();
-
-
+    void runMenu();
 }

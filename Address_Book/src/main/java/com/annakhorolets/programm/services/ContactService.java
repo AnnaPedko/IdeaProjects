@@ -2,8 +2,8 @@ package com.annakhorolets.programm.services;
 
 public interface ContactService {
     void createContact(String name, int age);
-    void editContact(String name, String newName, String newAge);
-    void showContact(String name);
+    void editContact(String name, String newName, Integer newAge, Integer key);
     void showContacts();
-    void removeContact(String name);
+    void deleteContact(Integer key);
+    void showContactsByName(String name);
 }
