@@ -1,30 +1,76 @@
 package com.annakhorolets.programm.model;
 
-public class Contact {
+import java.io.Serializable;
 
-    private String name_;
-    private Integer age_;
+public class Contact implements Serializable {
 
-    public Contact(String name, Integer age) {
-        this.name_ = name;
-        this.age_ = age;
+    public Contact(Integer id, String name, Integer age) {
+        name_ = name;
+        age_ = age;
+        id_ = id;
+    }
+    public Contact()
+    {
+
     }
 
-    public String getName_() {
+    public String getName()
+    {
         return name_;
     }
 
-    public Integer getAge_() {
+    public Integer getAge()
+    {
         return age_;
     }
 
-    public void setName_(String name_) {
-        this.name_ = name_;
+    public void setName(String name)
+    {
+        name_ = name;
     }
 
-    public void setAge_(int age_) {
-        this.age_ = age_;
+    public void setAge(Integer age)
+    {
+        age_ = age;
     }
 
+    public void setId(Integer id)
+    {
+        id_ = id;
+    }
 
+    public Integer getId()
+    {
+        return id_;
+    }
+
+    public void setParameter(String param, String value )
+    {
+        switch(param)
+        {
+            case "id":
+            {
+                setId(Integer.parseInt(value));
+                break;
+            }
+            case "name":
+            {
+                setName(value);
+                break;
+            }
+            case "age":
+                setAge(Integer.parseInt(value));
+                break;
+        }
+    }
+
+    @Override
+    public String toString()
+    {
+        return "id=" + id_ + ";name=" + name_ + ";age=" + age_;
+    }
+
+    private String name_;
+    private Integer age_;
+    private Integer id_;
 }

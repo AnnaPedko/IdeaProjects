@@ -1,7 +1,6 @@
 package com.annakhorolets.programm.view.impl.impl;
 
 import com.annakhorolets.programm.Validator.ValidateName;
-import com.annakhorolets.programm.Validator.Validator;
 import com.annakhorolets.programm.services.ContactService;
 import com.annakhorolets.programm.view.impl.CmdLineService;
 
@@ -26,13 +25,14 @@ public class CmdLineServiceImpl implements CmdLineService {
         System.out.println("5 - show menu");
     }
 
-   public void runMenu() {
+   public void runMenu()
+   {
         boolean exit = false;
         while( !exit )
         {
             try {
                 showMenu();
-                int line = Integer.parseInt(br.readLine());
+                int line = Integer.parseInt(br_.readLine());
                 switch(line)
                 {
                     case 1: {
@@ -76,7 +76,7 @@ public class CmdLineServiceImpl implements CmdLineService {
 
 
         System.out.println("Enter age");
-        int age = Integer.parseInt(br.readLine());
+        int age = Integer.parseInt(br_.readLine());
 
         contactService_.createContact(name, age);
     }
@@ -84,30 +84,30 @@ public class CmdLineServiceImpl implements CmdLineService {
     private void editContact() throws IOException
     {
         System.out.println("Enter name");
-        String name = br.readLine();
+        String name = br_.readLine();
 
         System.out.println("Enter new name");
-        String newName = br.readLine();
+        String newName = br_.readLine();
 
         System.out.println("Enter age");
-        Integer newAge = Integer.parseInt(br.readLine());
+        Integer newAge = Integer.parseInt(br_.readLine());
 
         showContactsByName(name);
 
         System.out.println("Insert key what you want change");
 
-        Integer key = Integer.parseInt(br.readLine());
+        Integer key = Integer.parseInt(br_.readLine());
 
         contactService_.editContact(name, newName, newAge, key);
     }
 
     private void deleteContact() throws IOException
     {
-        showContacts();
+        contactService_.showContacts();
 
         System.out.println("Insert key what you want delete");
 
-        Integer key = Integer.parseInt(br.readLine());
+        Integer key = Integer.parseInt(br_.readLine());
 
         contactService_.deleteContact(key);
     }
@@ -123,5 +123,5 @@ public class CmdLineServiceImpl implements CmdLineService {
     }
 
     private ContactService contactService_;
-    private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    private BufferedReader br_ = new BufferedReader(new InputStreamReader(System.in));
 }
