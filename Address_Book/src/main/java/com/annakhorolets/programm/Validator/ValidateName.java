@@ -1,26 +1,24 @@
 package com.annakhorolets.programm.Validator;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
-public class ValidateName extends ValidatorImpl
+public class ValidateName extends Validator
 {
-
-    public String getName () throws IOException
+    private boolean validateLength(String name)
     {
-       String name = null;
-
-        do
-        {
-            System.out.println("Name should contain only letters");
-            name = br.readLine();
-        }
-        while( !super.isAlpha(name) );
-
-        return name;
+        return name.length() <= 15;
     }
 
-    private BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public boolean validate(String param)
+    {
+        if( super.validate(param) )
+        {
+            if ( validateLength(param) )
+            {
+                return super.isAlpha(param);
+            }
 
+            return validateLength(param);
+        }
+
+        return super.validate(param);
+    }
 }
