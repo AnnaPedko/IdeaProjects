@@ -1,6 +1,6 @@
 package com.annakhorolets.programm.view.impl.impl;
 
-import com.annakhorolets.programm.Validator.ValidateName;
+import com.annakhorolets.programm.Validator.Validator;
 import com.annakhorolets.programm.Validator.ValidatorFactory;
 import com.annakhorolets.programm.services.ContactService;
 import com.annakhorolets.programm.view.impl.CmdLineService;
@@ -9,7 +9,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class CmdLineServiceImpl implements CmdLineService {
+public class CmdLineServiceImpl implements CmdLineService
+{
 
     public CmdLineServiceImpl(ContactService contactService)
     {
@@ -36,30 +37,36 @@ public class CmdLineServiceImpl implements CmdLineService {
                 int line = Integer.parseInt(br_.readLine());
                 switch(line)
                 {
-                    case 1: {
+                    case 1:
+                    {
                         createContact();
                         break;
                     }
-                    case 2: {
+                    case 2:
+                    {
                         editContact();
                         break;
                     }
-                    case 3: {
+                    case 3:
+                    {
                         deleteContact();
                         break;
                     }
-                    case 4: {
+                    case 4:
+                    {
                         showContacts();
                         break;
                     }
-                    case 5: {
+                    case 5:
+                    {
                         showMenu();
                         break;
-                    }
-                    case 0: {
+                     }
+                    case 0:
+                     {
                         exit = true;
                         System.out.println("You pressed Exit");
-                    }
+                     }
                 }
             }
             catch(Exception e)
@@ -110,21 +117,6 @@ public class CmdLineServiceImpl implements CmdLineService {
         contactService_.showContactsByName(name);
     }
 
-    private String getName(String text) throws IOException
-    {
-
-        String name;
-        do
-        {
-            System.out.println(text);
-             name = br_.readLine();
-
-        }
-        while( !(ValidatorFactory.getValidator("name").validate(name)) );
-
-        return name;
-    }
-
     private <T> T convertFromString(String value, Class<T> c)
     {
         if( c == Integer.class)
@@ -133,46 +125,32 @@ public class CmdLineServiceImpl implements CmdLineService {
         return (T) value;
     }
 
-    private <T> T getParam(String text, Class<T> c) throws IOException {
+    private <T> T getParam(String text, Validator validator, Class<T> c) throws IOException
+    {
         String param;
         do
         {
             System.out.println(text);
             param = br_.readLine();
-
         }
-        while( !(ValidatorFactory.getValidator("age").validate(param)) );
+        while( !validator.validate(param) );
 
         return convertFromString(param, c);
     }
 
-    private Integer getAge(String text) throws IOException {
-        return getParam(text, Integer.class);
-//        String age;
-//        do
-//        {
-//            System.out.println(text);
-//            age = br_.readLine();
-//
-//        }
-//        while( !(ValidatorFactory.getValidator("age").validate(age)) );
-//
-//        return Integer.parseInt(age);
+    private Integer getAge(String text) throws IOException
+    {
+        return getParam(text, ValidatorFactory.getValidator("age" ), Integer.class);
     }
 
-    private Integer getKey(String text) throws IOException {
-        String key;
-        do
-        {
-            System.out.println("Key should contain integer values");
+    private Integer getKey(String text) throws IOException
+    {
+        return getParam(text, ValidatorFactory.getValidator("key" ), Integer.class);
+    }
 
-            System.out.println(text);
-            key = br_.readLine();
-
-        }
-        while( !(ValidatorFactory.getValidator("key").validate(key)) );
-
-        return Integer.parseInt(key);
+    private String getName(String text) throws IOException
+    {
+        return getParam(text, ValidatorFactory.getValidator("name" ), String.class);
     }
 
     private ContactService contactService_;

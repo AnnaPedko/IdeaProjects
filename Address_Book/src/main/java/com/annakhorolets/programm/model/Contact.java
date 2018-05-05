@@ -1,14 +1,14 @@
 package com.annakhorolets.programm.model;
 
-import java.io.Serializable;
-
-public class Contact implements Serializable {
-
-    public Contact(Integer id, String name, Integer age) {
+public class Contact
+{
+    public Contact(Integer id, String name, Integer age)
+    {
         name_ = name;
-        age_ = age;
-        id_ = id;
+        age_  = age;
+        id_   = id;
     }
+
     public Contact()
     {
 
@@ -44,7 +44,7 @@ public class Contact implements Serializable {
         return id_;
     }
 
-    public void setParameter(String param, String value )
+    public void setParameter(String param, String value)
     {
         switch(param)
         {
@@ -59,7 +59,7 @@ public class Contact implements Serializable {
                 break;
             }
             case "age":
-                setAge(Integer.parseInt(value));
+                setAge(Integer.valueOf(value));
                 break;
         }
     }
@@ -70,7 +70,7 @@ public class Contact implements Serializable {
         return "id=" + id_ + ";name=" + name_ + ";age=" + age_;
     }
 
-    private String name_;
+    private String  name_;
     private Integer age_;
     private Integer id_;
 }

@@ -30,11 +30,9 @@ public class ContactServiceImpl implements ContactService {
         contactDao_.editContact(name, newName, newAge, key);
     }
 
-
     @Override
     public void deleteContact(Integer key)
     {
-
         contactDao_.deleteContact(key);
     }
 

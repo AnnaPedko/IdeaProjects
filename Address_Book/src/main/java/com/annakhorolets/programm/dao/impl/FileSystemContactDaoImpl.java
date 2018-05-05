@@ -15,7 +15,7 @@ public class FileSystemContactDaoImpl implements ContactDao
         {
             filewriter = new FileWriter(inputFile);
         }
-        catch ( IOException e )
+        catch( IOException e )
         {
             e.printStackTrace();
         }
@@ -36,13 +36,11 @@ public class FileSystemContactDaoImpl implements ContactDao
        {
            String line;
            tempFileWriter = new FileWriter(tempFile);
-
-           while ( (line = reader.readLine()) != null )
+           while( (line = reader.readLine()) != null )
            {
                PrintWriter tempWriter = new PrintWriter( new BufferedWriter( tempFileWriter));
-
                Contact contact = parseContact(line);
-               if ( contact.getId().equals(key) )
+               if( contact.getId().equals(key) )
                {
                    continue;
                }
@@ -58,28 +56,22 @@ public class FileSystemContactDaoImpl implements ContactDao
        }
     }
 
-
     @Override
     public void editContact(String name, String newName, Integer newAge, Integer key)
     {
-
         try ( BufferedReader reader = new BufferedReader(new FileReader(inputFile)) )
         {
             String line;
             tempFileWriter = new FileWriter(tempFile);
-
             while ( (line = reader.readLine()) != null )
             {
                 PrintWriter tempWriter = new PrintWriter( new BufferedWriter( tempFileWriter));
-
                 Contact contact = parseContact(line);
-
-                if (contact.getId().equals(key))
+                if( contact.getId().equals(key) )
                 {
                     contact.setName(newName);
                     contact.setAge(newAge);
                 }
-
                 tempWriter.println(contact);
                 tempWriter.flush();
             }
@@ -89,16 +81,15 @@ public class FileSystemContactDaoImpl implements ContactDao
         {
             e.printStackTrace();
         }
-
     }
 
     @Override
     public void showAll()
     {
-        try ( BufferedReader reader = new BufferedReader(new FileReader(inputFile)) )
+        try( BufferedReader reader = new BufferedReader(new FileReader(inputFile)) )
         {
             String line;
-            while ( (line = reader.readLine()) != null )
+            while ((line = reader.readLine()) != null )
                 System.out.println(line);
         }
         catch( IOException e)
@@ -112,13 +103,13 @@ public class FileSystemContactDaoImpl implements ContactDao
         Contact contact = new Contact();
         String[] splitString;
 
-        for ( String retval : line.split(";") )
+        for( String retval : line.split(";") )
         {
             splitString = retval.split("=");
-                for( int i = 0; i < splitString.length; i++ )
-                {
-                    contact.setParameter(splitString[0], splitString[1]);
-                }
+            for( int i = 0; i < splitString.length; i++ )
+            {
+                contact.setParameter(splitString[0], splitString[1]);
+            }
         }
 
         return contact;
@@ -126,10 +117,9 @@ public class FileSystemContactDaoImpl implements ContactDao
 
     public void showContactsByName(String name)
     {
-        try ( BufferedReader reader = new BufferedReader(new FileReader(inputFile)) ) {
-
+        try( BufferedReader reader = new BufferedReader(new FileReader(inputFile)) ) {
             String line;
-            while ( (line = reader.readLine()) != null )
+            while( (line = reader.readLine()) != null )
             {
                 Contact contact = parseContact(line);
                 if ( contact.getName().equals(name) )
@@ -146,9 +136,9 @@ public class FileSystemContactDaoImpl implements ContactDao
 
     public void copyDataBetweenFiles(File file1, File file2)
     {
-        try ( BufferedReader reader = new BufferedReader(new FileReader(file1)) )
+        try( BufferedReader reader = new BufferedReader(new FileReader(file1)) )
         {
-            if ( file2.exists() )
+            if( file2.exists() )
             {
                 file2.delete();
                 filewriter = new FileWriter(file2);
@@ -157,13 +147,13 @@ public class FileSystemContactDaoImpl implements ContactDao
             PrintWriter writer = new PrintWriter( new BufferedWriter(filewriter));
 
             String line;
-            while ( (line = reader.readLine()) != null )
+            while( (line = reader.readLine()) != null )
             {
                 writer.println(line);
             }
             writer.flush();
         }
-        catch ( IOException e )
+        catch( IOException e )
         {
             e.printStackTrace();
         }

@@ -7,27 +7,23 @@ import java.sql.*;
 
 public class DBContactDao implements ContactDao
 {
-    public static final String DB_URL = "jdbc:h2:tcp://localhost/~/Program";
-    private static final String USER_ = "Test";
-    private static final String PASSWORD_ = "";
-
     public DBContactDao()
     {
         try
         {
             Class.forName("org.h2.Driver");
         }
-        catch(ClassNotFoundException e)
+        catch( ClassNotFoundException e )
         {
             System.out.println("Cannot connect to DB");
         }
 
-        try (Connection connection = DriverManager.getConnection(DB_URL, USER_, PASSWORD_);
-             Statement st = connection.createStatement())
+        try( Connection connection = DriverManager.getConnection(DB_URL, USER_, PASSWORD_);
+             Statement st = connection.createStatement() )
         {
             st.execute("CREATE TABLE IF NOT  EXISTS CLIENT(ID INT AUTO_INCREMENT PRIMARY KEY, NAME VARCHAR(255), AGE INT);");
         }
-        catch (SQLException e)
+        catch( SQLException e )
         {
             e.printStackTrace();
         }
@@ -36,17 +32,15 @@ public class DBContactDao implements ContactDao
     @Override
     public void saveContact(Contact contact)
     {
-        try (Connection connection = DriverManager.getConnection(DB_URL, USER_, PASSWORD_);
-
-             PreparedStatement st = connection.prepareStatement("INSERT INTO CLIENT(NAME, AGE) VALUES(?, ?);"))
+        try ( Connection connection = DriverManager.getConnection(DB_URL, USER_, PASSWORD_);
+             PreparedStatement st = connection.prepareStatement("INSERT INTO CLIENT(NAME, AGE) VALUES(?, ?);") )
         {
-
             st.setString(1, contact.getName());
             st.setInt(2, contact.getAge());
 
             st.execute();
         }
-        catch (SQLException e)
+        catch( SQLException e )
         {
             e.printStackTrace();
         }
@@ -55,13 +49,13 @@ public class DBContactDao implements ContactDao
     @Override
     public void deleteContact(Integer key)
     {
-        try (Connection connection = DriverManager.getConnection(DB_URL, USER_, PASSWORD_);
-             PreparedStatement st = connection.prepareStatement("DELETE FROM CLIENT WHERE ID = ?")) {
-
+        try ( Connection connection = DriverManager.getConnection(DB_URL, USER_, PASSWORD_);
+             PreparedStatement st = connection.prepareStatement("DELETE FROM CLIENT WHERE ID = ?") )
+        {
             st.setInt(1, key);
             st.executeUpdate();
         }
-        catch (SQLException e)
+        catch( SQLException e )
         {
             e.printStackTrace();
         }
@@ -70,8 +64,8 @@ public class DBContactDao implements ContactDao
     @Override
     public void editContact(String name, String newName, Integer newAge, Integer key)
     {
-        try (Connection connection = DriverManager.getConnection(DB_URL, USER_, PASSWORD_);
-             PreparedStatement st = connection.prepareStatement("UPDATE CLIENT SET NAME = ?,  AGE = ? WHERE NAME = ? AND ID = ?;"))
+        try( Connection connection = DriverManager.getConnection(DB_URL, USER_, PASSWORD_);
+             PreparedStatement st = connection.prepareStatement("UPDATE CLIENT SET NAME = ?,  AGE = ? WHERE NAME = ? AND ID = ?;") )
         {
             st.setString(1, newName);
             st.setInt(2, newAge );
@@ -80,7 +74,7 @@ public class DBContactDao implements ContactDao
 
             st.execute();
         }
-        catch (SQLException e)
+        catch( SQLException e )
         {
             e.printStackTrace();
         }
@@ -88,12 +82,12 @@ public class DBContactDao implements ContactDao
 
     @Override
     public void showAll() {
-        try (Connection connection = DriverManager.getConnection(DB_URL, USER_, PASSWORD_);
-             Statement st = connection.createStatement())
+        try( Connection connection = DriverManager.getConnection(DB_URL, USER_, PASSWORD_);
+             Statement st = connection.createStatement() )
         {
-            try (ResultSet resultSet = st.executeQuery("SELECT * FROM CLIENT;"))
+            try( ResultSet resultSet = st.executeQuery("SELECT * FROM CLIENT;") )
             {
-                while (resultSet.next())
+                while( resultSet.next() )
                 {
                     int id = resultSet.getInt("id");
                     String name = resultSet.getString("name");
@@ -103,7 +97,7 @@ public class DBContactDao implements ContactDao
                 }
             }
         }
-        catch (SQLException e)
+        catch( SQLException e )
         {
             e.printStackTrace();
         }
@@ -112,12 +106,12 @@ public class DBContactDao implements ContactDao
     @Override
     public void showContactsByName(String name)
     {
-        try (Connection connection = DriverManager.getConnection(DB_URL, USER_, PASSWORD_);
-             Statement st = connection.createStatement())
+        try( Connection connection = DriverManager.getConnection(DB_URL, USER_, PASSWORD_);
+             Statement st = connection.createStatement() )
         {
-            try (ResultSet resultSet = st.executeQuery("SELECT * FROM CLIENT WHERE NAME = '" +  name + "';"))
+            try( ResultSet resultSet = st.executeQuery("SELECT * FROM CLIENT WHERE NAME = '" +  name + "';") )
             {
-                while (resultSet.next())
+                while( resultSet.next() )
                 {
                     int id = resultSet.getInt("id");
                     String name_field = resultSet.getString("name");
@@ -127,10 +121,14 @@ public class DBContactDao implements ContactDao
                 }
             }
         }
-        catch (SQLException e)
+        catch( SQLException e )
         {
             e.printStackTrace();
         }
     }
+
+    private static final String DB_URL    = "jdbc:h2:tcp://localhost/~/Program";
+    private static final String USER_     = "Test";
+    private static final String PASSWORD_ = "";
 }
 

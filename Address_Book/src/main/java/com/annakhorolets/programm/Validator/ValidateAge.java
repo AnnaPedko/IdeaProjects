@@ -9,9 +9,7 @@ public class ValidateAge extends Validator
             if ( super.isNumber(param) )
             {
                 if( validateLength(param) )
-                {
                     return validateValue(param);
-                }
 
                 return validateLength(param);
             }
@@ -24,7 +22,7 @@ public class ValidateAge extends Validator
 
     private boolean validateValue(String param)
     {
-        return Integer.parseInt(param) <= 120;
+        return (Integer.valueOf(param) > 0) &&(Integer.valueOf(param)<= 120);
     }
 
     private boolean validateLength(String name)

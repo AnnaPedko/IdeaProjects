@@ -2,8 +2,6 @@ package com.annakhorolets.programm.dao;
 
 import com.annakhorolets.programm.model.Contact;
 
-import java.io.IOException;
-
 public interface ContactDao
 {
     void saveContact(Contact contact);
