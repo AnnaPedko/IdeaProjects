@@ -2,7 +2,6 @@ package com.annakhorolets.programm;
 
 import com.annakhorolets.programm.dao.ContactDao;
 import com.annakhorolets.programm.dao.impl.DBContactDao;
-import com.annakhorolets.programm.dao.impl.FileSystemContactDaoImpl;
 import com.annakhorolets.programm.services.ContactService;
 import com.annakhorolets.programm.services.impl.ContactServiceImpl;
 import com.annakhorolets.programm.view.impl.CmdLineService;
@@ -14,6 +13,7 @@ public class App {
         //ContactDao contactDao = new FileSystemContactDaoImpl();
         ContactService contactService = new ContactServiceImpl(contactDao);
         CmdLineService cmd = new CmdLineServiceImpl(contactService);
+
         cmd.runMenu();
     }
 }

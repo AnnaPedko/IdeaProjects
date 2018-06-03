@@ -1,58 +1,75 @@
 package com.annakhorolets.programm.UI;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
-public class UI
+public class UI extends JPanel
     {
-        public static void createPanelUI(Container container)
+        private JButton removeButton = new JButton("Delete");
+        private JButton editButton = new JButton("Edit");
+        private JButton addButton = new JButton("Add");
+
+        private JTable  addressBookTable = new JTable();
+
+
+        public UI()
         {
-            JButton button;
-            JTable table;
-            
-            container.setLayout(new GridBagLayout());
+            setLayout(new GridBagLayout());
             GridBagConstraints constraints = new GridBagConstraints();
 
             constraints.fill = GridBagConstraints.VERTICAL;
-            constraints.weightx = 0.5;
-            constraints.gridy   = 1  ;
-
-            table = new JTable();
 
             constraints.gridx     = 0;
             constraints.gridy     = 0;
 
-            container.add(new JScrollPane(table), constraints);
+            add(new JScrollPane(addressBookTable), constraints);
 
             JPanel buttonPanel = new JPanel();
             buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
-            button = new JButton("Add");
-            buttonPanel.add(button);
-
-            button = new JButton("Edit");
-            buttonPanel.add(button);
-
-            button = new JButton("Delete");
-            buttonPanel.add(button);
+            buttonPanel.add(addButton);
+            buttonPanel.add(editButton);
+            buttonPanel.add(removeButton);
 
             constraints.gridx     = 1;
             constraints.gridy     = 0;
 
-            container.add(buttonPanel, constraints);
+            add(buttonPanel, constraints);
         }
 
-        public static void main(String[] args)
+        public void setOnAddClicked(ActionListener listener)
         {
-            JFrame frame = new JFrame("UI");
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            createPanelUI(frame.getContentPane());
-
-            frame.pack();
-            frame.setResizable(false);
-            frame.setVisible(true);
+            addButton.addActionListener(listener);
         }
+
+        public void setOnRemoveClicked(ActionListener listener)
+        {
+            removeButton.addActionListener(listener);
+        }
+
+        public void setOnEditClicked(ActionListener listener)
+        {
+            editButton.addActionListener(listener);
+        }
+
+        public void setTableData(Object[][] data, Object[] columnNames)
+        {
+            addressBookTable.setModel(new DefaultTableModel(data, columnNames));
+        }
+
+
+
+
+
+
+
+
+
+
+
     }
 
 
