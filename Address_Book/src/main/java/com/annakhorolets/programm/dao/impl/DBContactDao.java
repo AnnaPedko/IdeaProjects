@@ -4,6 +4,7 @@ import com.annakhorolets.programm.dao.ContactDao;
 import com.annakhorolets.programm.model.Contact;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DBContactDao implements ContactDao
 {
@@ -131,6 +132,50 @@ public class DBContactDao implements ContactDao
         {
             e.printStackTrace();
         }
+    }
+
+    public ArrayList<Contact> getContacts()
+    {
+        ArrayList contacts = new ArrayList<Contact>();
+        try (Connection connection = DriverManager.getConnection(DB_URL, USER_, PASSWORD_);
+             Statement st = connection.createStatement())
+        {
+            try (ResultSet resultSet = st.executeQuery("SELECT * FROM CLIENT"))
+            {
+                while (resultSet.next())
+                {
+                    Integer id = resultSet.getInt("id");
+                    String name_field = resultSet.getString("name");
+                    Integer age = resultSet.getInt("age");
+                    contacts.add(new Contact(id, name_field, age));
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return contacts;
+    }
+
+    public ArrayList<Object> getColumnsNames()
+    {
+        ArrayList columnNames = new ArrayList<Object>();
+        try (Connection connection = DriverManager.getConnection(DB_URL, USER_, PASSWORD_);
+             Statement st = connection.createStatement())
+        {
+            try (ResultSet resultSet = st.executeQuery("SELECT * FROM CLIENT"))
+            {
+                ResultSetMetaData rsmd = resultSet.getMetaData();
+                for (int i = 1; i <= rsmd.getColumnCount(); i++)
+                    columnNames.add(rsmd.getColumnName(i));
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return columnNames;
     }
 }
 

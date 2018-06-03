@@ -3,6 +3,7 @@ package com.annakhorolets.programm.dao;
 import com.annakhorolets.programm.model.Contact;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public interface ContactDao
 {
@@ -11,4 +12,7 @@ public interface ContactDao
     void editContact(String name, String newName, Integer newAge, Integer key);
     void showAll();
     void showContactsByName(String name);
+
+    ArrayList<Contact> getContacts();
+    ArrayList<Object> getColumnsNames();
 }

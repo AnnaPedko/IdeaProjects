@@ -4,6 +4,7 @@ import com.annakhorolets.programm.dao.ContactDao;
 import com.annakhorolets.programm.model.Contact;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class FileSystemContactDaoImpl implements ContactDao
 {
@@ -142,6 +143,16 @@ public class FileSystemContactDaoImpl implements ContactDao
         {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public ArrayList<Contact> getContacts() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Object> getColumnsNames() {
+        return null;
     }
 
     public void copyDataBetweenFiles(File file1, File file2)

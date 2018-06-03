@@ -44,6 +44,12 @@ public class Contact implements Serializable {
         return id_;
     }
 
+    public Object [] getArrayOfParameters()
+    {
+        Object[] arrayOfParameters = {id_, name_, age_};
+        return arrayOfParameters;
+    }
+
     public void setParameter(String param, String value )
     {
         switch(param)

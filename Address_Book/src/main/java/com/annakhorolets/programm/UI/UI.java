@@ -14,7 +14,6 @@ public class UI extends JPanel
 
         private JTable  addressBookTable = new JTable();
 
-
         public UI()
         {
             setLayout(new GridBagLayout());
@@ -60,16 +59,20 @@ public class UI extends JPanel
             addressBookTable.setModel(new DefaultTableModel(data, columnNames));
         }
 
+        public int getSelectedRow()
+        {
+            return addressBookTable.getSelectedRow();
+        }
 
+        public Object getValue(int row, int column)
+        {
+            return addressBookTable.getValueAt(row, column);
+        }
 
-
-
-
-
-
-
-
-
+        public void update()
+        {
+            ((DefaultTableModel)addressBookTable.getModel()).fireTableDataChanged();
+        }
     }
 
 

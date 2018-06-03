@@ -4,6 +4,7 @@ import com.annakhorolets.programm.dao.ContactDao;
 import com.annakhorolets.programm.model.Contact;
 import com.annakhorolets.programm.services.ContactService;
 
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ContactServiceImpl implements ContactService {
@@ -43,6 +44,15 @@ public class ContactServiceImpl implements ContactService {
         contactDao_.showContactsByName(name);
     }
 
+    public ArrayList<Contact> getContacts()
+    {
+        return contactDao_.getContacts();
+    }
+
+    public ArrayList<Object> getColumnsNames()
+    {
+        return contactDao_.getColumnsNames();
+    }
     private final ContactDao contactDao_;
     private AtomicInteger id_ = new AtomicInteger();
 }
