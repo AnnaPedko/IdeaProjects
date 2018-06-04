@@ -2,7 +2,6 @@ package com.annakhorolets.programm.UI;
 
 import com.annakhorolets.programm.model.Contact;
 import com.annakhorolets.programm.services.ContactService;
-import jdk.nashorn.internal.runtime.arrays.ArrayIndex;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,11 +18,17 @@ public class Controller
 
     private void bind()
     {
+        ui_.setTableData(getContacts(), getContactsFields());
+
         ui_.setOnAddClicked((ActionEvent e) ->
         {
-            JOptionPane.showMessageDialog(null, "Add clicked");
-
+            if (ui_.getContactFields())
+            {
+                contactService_.createContact(ui_.getName(),ui_.getAge());
+                updateTable();
+            }
         });
+
 
         ui_.setOnEditClicked((ActionEvent e) ->
         {
@@ -45,9 +50,9 @@ public class Controller
              ui_.setTableData(getContacts(), getContactsFields());
             }
         });
-
-        ui_.setTableData(getContacts(), getContactsFields());
     }
+
+
 
     public Object[][] getContacts()
     {
@@ -88,6 +93,11 @@ public class Controller
                 return i;
 
         return -1;
+    }
+
+    public void updateTable()
+    {
+        ui_.setTableData(getContacts(), getContactsFields());
     }
 
     private UI ui_;
