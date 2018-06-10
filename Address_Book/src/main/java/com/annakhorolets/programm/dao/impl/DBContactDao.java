@@ -158,6 +158,32 @@ public class DBContactDao implements ContactDao
         return contacts;
     }
 
+    public Contact getContact(Integer idField)
+    {
+       Contact contact = new Contact();
+        try (Connection connection = DriverManager.getConnection(DB_URL, USER_, PASSWORD_);
+             Statement st = connection.createStatement())
+        {
+            try (ResultSet resultSet = st.executeQuery("SELECT * FROM CLIENT WHERE ID = " +  idField))
+            {
+                while (resultSet.next())
+                {
+                    Integer id = resultSet.getInt("id");
+                    String name_field = resultSet.getString("name");
+                    Integer age = resultSet.getInt("age");
+                    contact = new Contact(id, name_field, age);
+                }
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+        return contact;
+
+    }
+
     public ArrayList<Object> getColumnsNames()
     {
         ArrayList columnNames = new ArrayList<Object>();

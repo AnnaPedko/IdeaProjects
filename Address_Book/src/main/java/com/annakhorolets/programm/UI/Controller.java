@@ -1,5 +1,6 @@
 package com.annakhorolets.programm.UI;
 
+import com.annakhorolets.programm.Validator.ValidatorFactory;
 import com.annakhorolets.programm.model.Contact;
 import com.annakhorolets.programm.services.ContactService;
 
@@ -22,18 +23,11 @@ public class Controller
 
         ui_.setOnAddClicked((ActionEvent e) ->
         {
-            if (ui_.getContactFields())
+            if (getContactFields())
             {
-                contactService_.createContact(ui_.getName(),ui_.getAge());
+                contactService_.createContact(ui_.getName(),Integer.parseInt(ui_.getAge()));
                 updateTable();
             }
-        });
-
-
-        ui_.setOnEditClicked((ActionEvent e) ->
-        {
-            JOptionPane.showMessageDialog(null, "Edit clicked");
-
         });
 
         ui_.setOnRemoveClicked((ActionEvent e) ->
@@ -50,7 +44,49 @@ public class Controller
              ui_.setTableData(getContacts(), getContactsFields());
             }
         });
-    }
+
+        ui_.setOnEditClicked((ActionEvent e) ->
+        {
+            int row = ui_.getSelectedRow();
+            boolean flag = false;
+
+            if( row!=-1 )
+            {
+                int col = findIndex(getContactsFields(),"ID");
+
+                Object key = ui_.getValue(row, col);
+                Integer contactKey = (Integer)key;
+                Contact contact = contactService_.getContact(contactKey);
+
+                String contactId = contact.getId().toString();
+                String contactName = contact.getName();
+                String contactAge = contact.getAge().toString();
+
+                ui_.setId(contactId);
+                ui_.setName(contactName);
+                ui_.setAge(contactAge);
+
+                int result = ui_.showEditDialog();
+
+                if( result == JOptionPane.OK_OPTION )
+                {
+                    if(!(ui_.getName().equals(contactName)) || !(ui_.getAge().equals(contactAge)) )
+                    {
+                    while( ! (validateAge() && validateName()))
+                    {
+                        int res = ui_.showEditWarningDialog();
+                        if (res == JOptionPane.CANCEL_OPTION)
+                        {
+
+                        }
+                    }
+
+                    contactService_.editContact(contactName, ui_.getName(), Integer.parseInt(ui_.getAge()), contactKey);
+                }
+                }
+                ui_.setTableData(getContacts(), getContactsFields());
+            }
+        });    }
 
 
 
@@ -95,9 +131,40 @@ public class Controller
         return -1;
     }
 
+    public  boolean getContactFields() {
+    boolean flag = false;
+
+    int result = ui_.showDialog();
+
+    if( result == JOptionPane.OK_OPTION )
+    {
+        while( ! (validateAge() && validateName()))
+        {
+            int res = ui_.showWarningDialog();
+            if (res == JOptionPane.CANCEL_OPTION)
+                return flag;
+        }
+
+        flag = true;
+
+    }
+
+    return flag;
+}
+
     public void updateTable()
     {
         ui_.setTableData(getContacts(), getContactsFields());
+    }
+
+    public  boolean  validateName()
+    {
+        return ValidatorFactory.getValidator("name").validate(ui_.getName());
+    }
+
+    public  boolean  validateAge()
+    {
+        return ValidatorFactory.getValidator("age").validate(ui_.getAge());
     }
 
     private UI ui_;

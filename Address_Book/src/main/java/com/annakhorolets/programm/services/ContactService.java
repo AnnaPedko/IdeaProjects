@@ -12,4 +12,5 @@ public interface ContactService {
     void showContactsByName(String name);
     ArrayList<Contact> getContacts();
     ArrayList<Object> getColumnsNames();
+    public Contact getContact(Integer ID);
 }

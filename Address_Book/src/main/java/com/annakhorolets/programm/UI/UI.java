@@ -1,6 +1,7 @@
 package com.annakhorolets.programm.UI;
 
 import com.annakhorolets.programm.Validator.ValidatorFactory;
+import javafx.geometry.HorizontalDirection;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -64,81 +65,143 @@ public class UI extends JPanel
         return addressBookTable.getValueAt(row, column);
     }
 
+    JTextField idField = new JTextField(5);
+    JTextField nameField = new JTextField(5);
+    JTextField ageField = new javax.swing.JTextField(5);
+    String message = "Enter Name and Age Values";
+    JPanel addPanel = new JPanel();
+    JPanel addWarningPanel = new JPanel();
+    JPanel editWarningPanel = new JPanel();
+    JPanel editPanel = new JPanel();
 
-        private static JTextField nameField = new JTextField(5);
-        private static JTextField ageField = new javax.swing.JTextField(5);
+    public  JPanel createDialog()
+    {
 
-        public static JPanel createDialog()
+        if (null != addPanel)
         {
-            JPanel addPanel = new JPanel();
-            addPanel.add(new JLabel("Name:"));
-            addPanel.add(nameField);
-            addPanel.add(Box.createHorizontalStrut(15)); // a spacer
-            addPanel.add(new JLabel("Age:"));
-            addPanel.add(ageField);
-
-            return addPanel;
+            addPanel.removeAll();
         }
 
-        public static JPanel createWarrningDialog()
+        addPanel.add(new JLabel("Name:"));
+        addPanel.add(nameField);
+        nameField.setText("");
+        addPanel.add(Box.createHorizontalStrut(15)); // a spacer
+        addPanel.add(new JLabel("Age:"));
+        addPanel.add(ageField);
+        ageField.setText("");
+        nameField.setHorizontalAlignment(SwingConstants.CENTER);
+
+        return addPanel;
+    }
+
+    public  JPanel createWarningDialog()
+    {
+
+        if (null != addWarningPanel)
         {
-            JPanel addPanel = new JPanel();
-            addPanel.add(new JLabel("Name or Age are incorrect:"));
-            addPanel.add(new JLabel("Name:"));
-            addPanel.add(nameField);
-            addPanel.add(Box.createHorizontalStrut(15)); // a spacer
-            addPanel.add(new JLabel("Age:"));
-            addPanel.add(ageField);
-
-            return addPanel;
+            addWarningPanel.removeAll();
         }
-        public  boolean getContactFields() {
-            boolean flag = false;
+        JLabel warningLabel = new JLabel("Name or Age are incorrect:");
+        addWarningPanel.add(warningLabel);
+        warningLabel.setHorizontalAlignment(SwingConstants.LEADING);
+        warningLabel.setForeground(Color.red);
+        addWarningPanel.add(new JLabel("Name:"));
+        addWarningPanel.add(nameField);
+        addWarningPanel.add(Box.createHorizontalStrut(15)); // a spacer
+        addWarningPanel.add(new JLabel("Age:"));
+        addWarningPanel.add(ageField);
 
-            int result = JOptionPane.showConfirmDialog(null, createDialog(),
-                    "Please Enter Name and Age Values", JOptionPane.OK_CANCEL_OPTION);
+        return addWarningPanel;
+    }
 
-            if( result == JOptionPane.OK_OPTION )
-            {
-                while( ! (validateAge() && validateName()))
-                {
-                    int res = JOptionPane.showConfirmDialog(null, createWarrningDialog(),
-                            "Please Enter Name and Age Values", JOptionPane.OK_CANCEL_OPTION);
-                    if (res == JOptionPane.CANCEL_OPTION)
-                        return flag;
-                }
-
-            flag = true;
-
-            }
-
-         return flag;
-        }
-
-        public  boolean  validateName()
+    public  JPanel createEditWarningDialog()
+    {
+        if (null != editWarningPanel)
         {
-            return ValidatorFactory.getValidator("name").validate(nameField.getText());
+            editWarningPanel.removeAll();
         }
+        JLabel warningLabel = new JLabel("Name or Age are incorrect:");
+        editWarningPanel.add(warningLabel);
+        warningLabel.setHorizontalAlignment(SwingConstants.LEADING);
+        warningLabel.setForeground(Color.red);
+        editWarningPanel.add(new JLabel("Id"));
+        editWarningPanel.add(idField);
+        idField.setEditable(false);
+        editWarningPanel.add(new JLabel("Name:"));
+        editWarningPanel.add(nameField);
+        editWarningPanel.add(Box.createHorizontalStrut(15)); // a spacer
+        editWarningPanel.add(new JLabel("Age:"));
+        editWarningPanel.add(ageField);
+        nameField.setHorizontalAlignment(SwingConstants.CENTER);
 
-        public  boolean  validateAge()
+        return editWarningPanel;
+    }
+
+    public  JPanel createEditDialog()
+    {
+        if (null != editPanel)
         {
-            return ValidatorFactory.getValidator("age").validate(ageField.getText());
+            editPanel.removeAll();
         }
+        editPanel.add(new JLabel("Id"));
+        editPanel.add(idField);
+        idField.setEditable(false);
+        editPanel.add(new JLabel("Name:"));
+        editPanel.add(nameField);
+        editPanel.add(Box.createHorizontalStrut(15)); // a spacer
+        editPanel.add(new JLabel("Age:"));
+        editPanel.add(ageField);
+        nameField.setHorizontalAlignment(SwingConstants.CENTER);
 
-        public  String getName()
-        {
-            String name = nameField.getText();
+        return editPanel;
+    }
 
-            return name;
-        }
+   public void setId(String text)
+   {
+       idField.setText(text);
+   }
 
-        public int getAge() {
-            String age = ageField.getText();
+   public void setName(String text)
+   {
+        nameField.setText(text);
+   }
 
-            return Integer.parseInt(age);
-        }
+   public void setAge(String text)
+   {
+        ageField.setText(text);
+   }
+
+    public String getName()
+    {
+        return nameField.getText();
+    }
+
+    public String getAge()
+    {
+        return ageField.getText();
+    }
+
+    public int showDialog()
+    {
+        return JOptionPane.showConfirmDialog(null, createDialog(), message, JOptionPane.OK_CANCEL_OPTION);
+    }
+
+    public int showWarningDialog()
+    {
+
+        return JOptionPane.showConfirmDialog(null, createWarningDialog(),
+                message, JOptionPane.OK_CANCEL_OPTION);
+    }
+
+    public int showEditDialog()
+    {
+        return JOptionPane.showConfirmDialog(null, createEditDialog(), message, JOptionPane.OK_CANCEL_OPTION);
+    }
+
+    public int showEditWarningDialog()
+    {
+        return JOptionPane.showConfirmDialog(null, createEditWarningDialog(), message, JOptionPane.OK_CANCEL_OPTION);
     }
 
 
-
-
+    }

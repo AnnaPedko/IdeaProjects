@@ -15,4 +15,5 @@ public interface ContactDao
 
     ArrayList<Contact> getContacts();
     ArrayList<Object> getColumnsNames();
+    Contact getContact(Integer ID);
 }

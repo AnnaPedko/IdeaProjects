@@ -150,8 +150,14 @@ public class FileSystemContactDaoImpl implements ContactDao
         return null;
     }
 
+
     @Override
     public ArrayList<Object> getColumnsNames() {
+        return null;
+    }
+
+    @Override
+    public Contact getContact(Integer ID) {
         return null;
     }
 

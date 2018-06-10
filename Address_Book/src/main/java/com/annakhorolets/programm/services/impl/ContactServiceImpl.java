@@ -31,6 +31,10 @@ public class ContactServiceImpl implements ContactService {
         contactDao_.editContact(name, newName, newAge, key);
     }
 
+    public Contact getContact(Integer key)
+    {
+        return contactDao_.getContact(key);
+    }
 
     @Override
     public void deleteContact(Integer key)
