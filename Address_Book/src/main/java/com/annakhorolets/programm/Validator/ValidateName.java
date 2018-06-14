@@ -12,9 +12,7 @@ public class ValidateName extends Validator
         if( super.validate(param) )
         {
             if ( validateLength(param) )
-            {
                 return super.isAlpha(param);
-            }
 
             return validateLength(param);
         }
