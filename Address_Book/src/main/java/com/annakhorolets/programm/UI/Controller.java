@@ -68,16 +68,14 @@ public class Controller
                 {
                     if( !(ui_.getName().equals(contactName)) || !(ui_.getAge().equals(contactAge)) )
                     {
-                    while( ! (validateAge() && validateName()))
-                    {
-                        int res = ui_.showEditWarningDialog();
-                        if (res == JOptionPane.CANCEL_OPTION)
+                        while( ! (validateAge() && validateName()))
                         {
-
+                            int res = ui_.showEditWarningDialog();
+                            if (res == JOptionPane.CANCEL_OPTION)
+                                return;
                         }
-                    }
 
-                    contactService_.editContact(contactName, ui_.getName(), Integer.parseInt(ui_.getAge()), contactKey);
+                        contactService_.editContact(contactName, ui_.getName(), Integer.parseInt(ui_.getAge()), contactKey);
                     }
                 }
                 ui_.setTableData(getContacts(), getContactsFields());
@@ -128,24 +126,24 @@ public class Controller
         return -1;
     }
 
-    public  boolean getContactFields() {
-    int     result = ui_.showDialog();
-    boolean flag   = false;
-
-    if( result == JOptionPane.OK_OPTION )
+    public  boolean getContactFields()
     {
-        while( !(validateAge() && validateName()) )
+        int result = ui_.showDialog();
+
+        if( result == JOptionPane.OK_OPTION )
         {
-            int res = ui_.showWarningDialog();
-            if (res == JOptionPane.CANCEL_OPTION)
-                return flag;
+            while( !(validateAge() && validateName()) )
+            {
+                int res = ui_.showWarningDialog();
+                if (res == JOptionPane.CANCEL_OPTION)
+                    return false;
+            }
+
+            return true;
         }
 
-        flag = true;
+        return false;
     }
-
-    return flag;
-}
 
     public void updateTable()
     {
