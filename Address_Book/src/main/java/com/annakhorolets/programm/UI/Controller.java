@@ -12,7 +12,7 @@ public class Controller
 {
     public Controller(UI ui, ContactService contactService)
     {
-        ui_ = ui;
+        ui_             = ui;
         contactService_ = contactService;
         bind();
     }
@@ -33,34 +33,30 @@ public class Controller
         ui_.setOnRemoveClicked((ActionEvent e) ->
         {
             int row = ui_.getSelectedRow();
-
-            if( row!=-1 )
+            if( row != -1 )
             {
-             int col = findIndex(getContactsFields(),"ID");
+                 int col = findIndex(getContactsFields(),"ID");
 
-             Object key = ui_.getValue(row, col);
-             contactService_.deleteContact((Integer)key);
+                 Object key = ui_.getValue(row, col);
+                 contactService_.deleteContact((Integer)key);
 
-             ui_.setTableData(getContacts(), getContactsFields());
+                 ui_.setTableData(getContacts(), getContactsFields());
             }
         });
 
         ui_.setOnEditClicked((ActionEvent e) ->
         {
-            int row = ui_.getSelectedRow();
-            boolean flag = false;
-
-            if( row!=-1 )
+            int     row  = ui_.getSelectedRow();
+            if( row != -1 )
             {
-                int col = findIndex(getContactsFields(),"ID");
+                int     col         = findIndex(getContactsFields(),"ID");
+                Object  key         = ui_.getValue(row, col);
+                Integer contactKey  = (Integer)key;
+                Contact contact     = contactService_.getContact(contactKey);
 
-                Object key = ui_.getValue(row, col);
-                Integer contactKey = (Integer)key;
-                Contact contact = contactService_.getContact(contactKey);
-
-                String contactId = contact.getId().toString();
-                String contactName = contact.getName();
-                String contactAge = contact.getAge().toString();
+                String  contactId   = contact.getId().toString();
+                String  contactName = contact.getName();
+                String  contactAge  = contact.getAge().toString();
 
                 ui_.setId(contactId);
                 ui_.setName(contactName);
@@ -70,7 +66,7 @@ public class Controller
 
                 if( result == JOptionPane.OK_OPTION )
                 {
-                    if(!(ui_.getName().equals(contactName)) || !(ui_.getAge().equals(contactAge)) )
+                    if( !(ui_.getName().equals(contactName)) || !(ui_.getAge().equals(contactAge)) )
                     {
                     while( ! (validateAge() && validateName()))
                     {
@@ -82,13 +78,12 @@ public class Controller
                     }
 
                     contactService_.editContact(contactName, ui_.getName(), Integer.parseInt(ui_.getAge()), contactKey);
-                }
+                    }
                 }
                 ui_.setTableData(getContacts(), getContactsFields());
             }
-        });    }
-
-
+        });
+    }
 
     public Object[][] getContacts()
     {
@@ -103,7 +98,7 @@ public class Controller
     public Object[][] convertToDoubleArray( ArrayList<Contact>contacts)
     {
         int m = contacts.size();
-        int n = 3;
+        int n = Contact.class.getDeclaredFields().length;
         int i = 0;
         Object[][] contactsArray = new Object[m][n];
 
@@ -124,21 +119,22 @@ public class Controller
 
     public static int findIndex(Object[] a, Object target)
     {
-        for (int i = 0; i < a.length; i++)
-            if (a[i].equals(target))
+        for( int i = 0; i < a.length; ++i )
+        {
+            if(a[i].equals(target))
                 return i;
+        }
 
         return -1;
     }
 
     public  boolean getContactFields() {
-    boolean flag = false;
-
-    int result = ui_.showDialog();
+    int     result = ui_.showDialog();
+    boolean flag   = false;
 
     if( result == JOptionPane.OK_OPTION )
     {
-        while( ! (validateAge() && validateName()))
+        while( !(validateAge() && validateName()) )
         {
             int res = ui_.showWarningDialog();
             if (res == JOptionPane.CANCEL_OPTION)
@@ -146,7 +142,6 @@ public class Controller
         }
 
         flag = true;
-
     }
 
     return flag;
@@ -167,6 +162,6 @@ public class Controller
         return ValidatorFactory.getValidator("age").validate(ui_.getAge());
     }
 
-    private UI ui_;
+    private UI             ui_;
     private ContactService contactService_;
 }

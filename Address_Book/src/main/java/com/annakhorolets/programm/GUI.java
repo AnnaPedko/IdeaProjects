@@ -16,7 +16,6 @@ public class GUI
         ContactDao contactDao = new DBContactDao();
         ContactService contactService = new ContactServiceImpl(contactDao);
 
-
         JFrame frame = new JFrame("UI");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -31,7 +30,6 @@ public class GUI
 
     public static void main(String[] args)
     {
-
         start();
     }
 }

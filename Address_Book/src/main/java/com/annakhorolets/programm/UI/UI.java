@@ -1,23 +1,14 @@
 package com.annakhorolets.programm.UI;
 
-import com.annakhorolets.programm.Validator.ValidatorFactory;
-import javafx.geometry.HorizontalDirection;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class UI extends JPanel
 {
-    private JButton removeButton = new JButton("Delete");
-    private JButton editButton = new JButton("Edit");
-    private JButton addButton = new JButton("Add");
-
-    private JTable addressBookTable = new JTable();
-
-    public UI() {
+    public UI()
+    {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 
@@ -26,14 +17,15 @@ public class UI extends JPanel
         constraints.gridx = 0;
         constraints.gridy = 0;
 
-        add(new JScrollPane(addressBookTable), constraints);
+
+        add(new JScrollPane(addressBookTable_), constraints);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
 
-        buttonPanel.add(addButton);
-        buttonPanel.add(editButton);
-        buttonPanel.add(removeButton);
+        buttonPanel.add(addButton_);
+        buttonPanel.add(editButton_);
+        buttonPanel.add(removeButton_);
 
         constraints.gridx = 1;
         constraints.gridy = 0;
@@ -41,47 +33,60 @@ public class UI extends JPanel
         add(buttonPanel, constraints);
     }
 
-    public void setOnAddClicked(ActionListener listener) {
-        addButton.addActionListener(listener);
+    public void setOnAddClicked(ActionListener listener)
+    {
+        addButton_.addActionListener(listener);
     }
 
-    public void setOnRemoveClicked(ActionListener listener) {
-        removeButton.addActionListener(listener);
+    public void setOnRemoveClicked(ActionListener listener)
+    {
+        removeButton_.addActionListener(listener);
     }
 
-    public void setOnEditClicked(ActionListener listener) {
-        editButton.addActionListener(listener);
+    public void setOnEditClicked(ActionListener listener)
+    {
+        editButton_.addActionListener(listener);
     }
 
-    public void setTableData(Object[][] data, Object[] columnNames) {
-        addressBookTable.setModel(new DefaultTableModel(data, columnNames));
+    public void setTableData(Object[][] data, Object[] columnNames)
+    {
+        DefaultTableModel dataModel = new DefaultTableModel(data, columnNames)
+        {
+            public boolean isCellEditable(int row, int column)
+            {
+                return false;
+            }
+        };
+
+        addressBookTable_.setModel(dataModel);
     }
 
-    public int getSelectedRow() {
-        return addressBookTable.getSelectedRow();
+    public int getSelectedRow()
+    {
+        return addressBookTable_.getSelectedRow();
     }
 
-    public Object getValue(int row, int column) {
-        return addressBookTable.getValueAt(row, column);
+    public Object getValue(int row, int column)
+    {
+        return addressBookTable_.getValueAt(row, column);
     }
 
-    JTextField idField = new JTextField(5);
-    JTextField nameField = new JTextField(5);
-    JTextField ageField = new javax.swing.JTextField(5);
-    String message = "Enter Name and Age Values";
-    JPanel addPanel = new JPanel();
-    JPanel addWarningPanel = new JPanel();
-    JPanel editWarningPanel = new JPanel();
-    JPanel editPanel = new JPanel();
+    JTextField idField          = new JTextField(5);
+    JTextField nameField        = new JTextField(5);
+    JTextField ageField         = new javax.swing.JTextField(5);
+    String     message          = "Enter Name and Age Values";
+    JPanel     addPanel         = new JPanel();
+    JPanel     addWarningPanel  = new JPanel();
+    JPanel     editWarningPanel = new JPanel();
+    JPanel     editPanel        = new JPanel();
 
     public  JPanel createDialog()
     {
 
-        if (null != addPanel)
+        if( null != addPanel )
         {
             addPanel.removeAll();
         }
-
         addPanel.add(new JLabel("Name:"));
         addPanel.add(nameField);
         nameField.setText("");
@@ -97,7 +102,7 @@ public class UI extends JPanel
     public  JPanel createWarningDialog()
     {
 
-        if (null != addWarningPanel)
+        if( null != addWarningPanel )
         {
             addWarningPanel.removeAll();
         }
@@ -116,7 +121,7 @@ public class UI extends JPanel
 
     public  JPanel createEditWarningDialog()
     {
-        if (null != editWarningPanel)
+        if( null != editWarningPanel )
         {
             editWarningPanel.removeAll();
         }
@@ -139,7 +144,7 @@ public class UI extends JPanel
 
     public  JPanel createEditDialog()
     {
-        if (null != editPanel)
+        if( null != editPanel )
         {
             editPanel.removeAll();
         }
@@ -156,20 +161,20 @@ public class UI extends JPanel
         return editPanel;
     }
 
-   public void setId(String text)
-   {
+    public void setId(String text)
+    {
        idField.setText(text);
-   }
+    }
 
-   public void setName(String text)
-   {
+    public void setName(String text)
+    {
         nameField.setText(text);
-   }
+    }
 
-   public void setAge(String text)
-   {
+    public void setAge(String text)
+    {
         ageField.setText(text);
-   }
+    }
 
     public String getName()
     {
@@ -183,25 +188,30 @@ public class UI extends JPanel
 
     public int showDialog()
     {
-        return JOptionPane.showConfirmDialog(null, createDialog(), message, JOptionPane.OK_CANCEL_OPTION);
+        return JOptionPane.showConfirmDialog(null, createDialog(),
+                message, JOptionPane.OK_CANCEL_OPTION);
     }
 
     public int showWarningDialog()
     {
-
         return JOptionPane.showConfirmDialog(null, createWarningDialog(),
                 message, JOptionPane.OK_CANCEL_OPTION);
     }
 
     public int showEditDialog()
     {
-        return JOptionPane.showConfirmDialog(null, createEditDialog(), message, JOptionPane.OK_CANCEL_OPTION);
+        return JOptionPane.showConfirmDialog(null, createEditDialog(),
+                message, JOptionPane.OK_CANCEL_OPTION);
     }
 
     public int showEditWarningDialog()
     {
-        return JOptionPane.showConfirmDialog(null, createEditWarningDialog(), message, JOptionPane.OK_CANCEL_OPTION);
+        return JOptionPane.showConfirmDialog(null, createEditWarningDialog(),
+                message, JOptionPane.OK_CANCEL_OPTION);
     }
 
-
-    }
+        private JButton removeButton_     = new JButton("Delete");
+        private JButton editButton_       = new JButton("Edit");
+        private JButton addButton_        = new JButton("Add");
+        private JTable  addressBookTable_ = new JTable();
+}
